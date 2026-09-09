@@ -1,17 +1,28 @@
-import { useState } from "react";
+import { useState } from "react"
+import NovoChamado from "./components/NovoChamado"
+
+type Chamado = {
+  id: number
+  titulo: string
+  descricao: string
+}
 
 function App() {
-
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
-  const [titulo, setTitulo] = useState("")
-  const [descricao, setDescricao] = useState("")
+  const [chamados, setChamados] = useState<Chamado[]>([])
 
   function abrirChamado() {
     setMostrarFormulario(true)
   }
 
-  function criarChamado() {
-    alert(`Título: ${titulo}\nDescrição: ${descricao}`)
+  function adicionarChamado(titulo: string, descricao: string) {
+    const novoChamado = {
+      id: Date.now(),
+      titulo: titulo,
+      descricao: descricao
+    }
+
+    setChamados([...chamados, novoChamado])
   }
 
   return (
@@ -24,31 +35,17 @@ function App() {
       </button>
 
       {mostrarFormulario && (
-        <div>
-          <h2>Novo chamado</h2>
+        <NovoChamado onCriarChamado={adicionarChamado} />
+        )}
 
-          <label>Título</label>
-          <input
-            type="text"
-            value={titulo}
-            onChange={(event) => setTitulo(event.target.value)}
-          />
+        <h2>Chamados</h2>
 
-          <br />
-
-          <label>Descrição</label>
-          <textarea
-            value={descricao}
-            onChange={(event) => setDescricao(event.target.value)}
-          />
-
-          <br />
-
-          <button onClick={criarChamado}>
-            Criar chamado
-          </button>
-        </div>
-      )}
+        {chamados.map((chamado) => (
+          <div key={chamado.id}>
+            <h3>{chamado.titulo}</h3>
+            <p>{chamado.descricao}</p>
+          </div>
+        ))}
     </div>
   )
 }
