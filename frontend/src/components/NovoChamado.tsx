@@ -7,9 +7,11 @@ type NovoChamadoProps = {
       categoria: string,
       prioridade: string
     ) => void
+
+    onCancelar: () => void
 }
 
-function NovoChamado({ onCriarChamado }: NovoChamadoProps) {
+function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
   const [titulo, setTitulo] = useState("")
   const [descricao, setDescricao] = useState("")
   const [categoria, setCategoria] = useState("")
@@ -87,6 +89,10 @@ function NovoChamado({ onCriarChamado }: NovoChamadoProps) {
 
       <button onClick={criarChamado}>
         Criar chamado
+      </button>
+
+      <button onClick={onCancelar}>
+        Cancelar
       </button>
     </div>
   )

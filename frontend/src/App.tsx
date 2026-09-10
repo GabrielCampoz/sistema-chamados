@@ -1,13 +1,7 @@
 import { useState } from "react"
 import NovoChamado from "./components/NovoChamado"
-
-type Chamado = {
-  id: number
-  titulo: string
-  descricao: string
-  categoria: string
-  prioridade: string
-}
+import type { Chamado } from "./types/Chamado"
+import ListaChamados from "./components/ListaChamados"
 
 function App() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false)
@@ -17,16 +11,22 @@ function App() {
     setMostrarFormulario(true)
   }
 
+  function fecharFormulario() {
+    setMostrarFormulario(false)
+  }
+
   function adicionarChamado(titulo: string, descricao: string, categoria: string, prioridade: string) {
     const novoChamado = {
       id: Date.now(),
       titulo: titulo,
       descricao: descricao,
       categoria: categoria,
-      prioridade: prioridade
+      prioridade: prioridade,
+      status: "aberto"
     }
 
     setChamados([...chamados, novoChamado])
+    setMostrarFormulario(false)
   }
 
   return (
@@ -39,19 +39,14 @@ function App() {
       </button>
 
       {mostrarFormulario && (
-        <NovoChamado onCriarChamado = {adicionarChamado} />
+        <NovoChamado 
+        onCriarChamado = {adicionarChamado} 
+        onCancelar={fecharFormulario}
+        />
         )}
 
-        <h2>Chamados</h2>
+        <ListaChamados chamados={chamados} />
 
-        {chamados.map((chamado) => (
-          <div key={chamado.id}>
-            <h3>{chamado.titulo}</h3>
-            <p>{chamado.descricao}</p>
-            <p>Categoria: {chamado.categoria}</p>
-            <p>Prioridade: {chamado.prioridade}</p>
-          </div>
-        ))}
     </div>
   )
 }
