@@ -5,6 +5,8 @@ type Chamado = {
   id: number
   titulo: string
   descricao: string
+  categoria: string
+  prioridade: string
 }
 
 function App() {
@@ -15,11 +17,13 @@ function App() {
     setMostrarFormulario(true)
   }
 
-  function adicionarChamado(titulo: string, descricao: string) {
+  function adicionarChamado(titulo: string, descricao: string, categoria: string, prioridade: string) {
     const novoChamado = {
       id: Date.now(),
       titulo: titulo,
-      descricao: descricao
+      descricao: descricao,
+      categoria: categoria,
+      prioridade: prioridade
     }
 
     setChamados([...chamados, novoChamado])
@@ -35,7 +39,7 @@ function App() {
       </button>
 
       {mostrarFormulario && (
-        <NovoChamado onCriarChamado={adicionarChamado} />
+        <NovoChamado onCriarChamado = {adicionarChamado} />
         )}
 
         <h2>Chamados</h2>
@@ -44,6 +48,8 @@ function App() {
           <div key={chamado.id}>
             <h3>{chamado.titulo}</h3>
             <p>{chamado.descricao}</p>
+            <p>Categoria: {chamado.categoria}</p>
+            <p>Prioridade: {chamado.prioridade}</p>
           </div>
         ))}
     </div>
