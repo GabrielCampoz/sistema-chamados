@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from "react"
+import type { CategoriaChamado, PrioridadeChamado } from "../types/Chamado"
 
 type NovoChamadoProps = {
   onCriarChamado: (
     titulo: string,
     descricao: string,
-    categoria: string,
-    prioridade: string
+    categoria: CategoriaChamado,
+    prioridade: PrioridadeChamado
   ) => void
 
   onCancelar: () => void
@@ -14,8 +15,8 @@ type NovoChamadoProps = {
 function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
   const [titulo, setTitulo] = useState("")
   const [descricao, setDescricao] = useState("")
-  const [categoria, setCategoria] = useState("")
-  const [prioridade, setPrioridade] = useState("media")
+  const [categoria, setCategoria] = useState<CategoriaChamado | "">("")
+  const [prioridade, setPrioridade] = useState<PrioridadeChamado>("media")
 
 
   function criarChamado(event: FormEvent<HTMLFormElement>) {
@@ -70,7 +71,19 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
       <select
         id="categoria"
         value={categoria}
-        onChange={(event) => setCategoria(event.target.value)}
+        onChange={(event) => {
+          const valor = event.target.value
+
+          if (
+            valor === "" ||
+            valor === "hardware" ||
+            valor === "software" ||
+            valor === "rede" ||
+            valor === "acesso"
+          ) {
+            setCategoria(valor)
+          }
+        }}
       >
         <option value="">Selecione uma categoria</option>
         <option value="hardware">Hardware</option>
@@ -86,7 +99,13 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
       <select
         id="prioridade"
         value={prioridade}
-        onChange={(event) => setPrioridade(event.target.value)}
+        onChange={(event) => {
+          const valor = event.target.value
+
+          if (valor === "baixa" || valor === "media" || valor === "alta") {
+            setPrioridade(valor)
+          }
+        }}
       >
         <option value="baixa">Baixa</option>
         <option value="media">Media</option>

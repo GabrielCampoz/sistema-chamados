@@ -1,6 +1,6 @@
 import { useState } from "react"
 import NovoChamado from "./components/NovoChamado"
-import type { Chamado } from "./types/Chamado"
+import type { CategoriaChamado, Chamado, PrioridadeChamado } from "./types/Chamado"
 import ListaChamados from "./components/ListaChamados"
 
 function App() {
@@ -15,8 +15,13 @@ function App() {
     setMostrarFormulario(false)
   }
 
-  function adicionarChamado(titulo: string, descricao: string, categoria: string, prioridade: string) {
-    const novoChamado = {
+  function adicionarChamado(
+    titulo: string,
+    descricao: string,
+    categoria: CategoriaChamado,
+    prioridade: PrioridadeChamado
+  ) {
+    const novoChamado: Chamado = {
       id: Date.now(),
       titulo: titulo,
       descricao: descricao,
@@ -31,6 +36,16 @@ function App() {
     ])
 
     setMostrarFormulario(false)
+  }
+
+  function resolverChamado(id: number) {
+    setChamados((chamadosAtuais) =>
+      chamadosAtuais.map((chamado) =>
+        chamado.id === id
+          ? { ...chamado, status: "resolvido" }
+          : chamado
+      )
+    )
   }
 
   return (
@@ -51,7 +66,7 @@ function App() {
         />
         )}
 
-        <ListaChamados chamados={chamados} />
+        <ListaChamados chamados={chamados} onResolverChamado={resolverChamado} />
 
     </div>
   )
