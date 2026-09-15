@@ -25,7 +25,11 @@ function App() {
       status: "aberto"
     }
 
-    setChamados([...chamados, novoChamado])
+    setChamados((chamadosAtuais) => [
+      ...chamadosAtuais,
+      novoChamado
+    ])
+
     setMostrarFormulario(false)
   }
 
@@ -34,9 +38,11 @@ function App() {
       <h1>Sistema de Chamados</h1>
       <p>Gerencie seus chamados de suporte.</p>
 
-      <button onClick={abrirChamado}>
-        Abrir chamado
-      </button>
+      {!mostrarFormulario && (
+        <button onClick={abrirChamado}>
+          Abrir chamado
+        </button>
+      )}
 
       {mostrarFormulario && (
         <NovoChamado 

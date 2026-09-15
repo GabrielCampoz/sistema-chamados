@@ -1,14 +1,14 @@
-import { useState } from "react"
+import { useState, type FormEvent } from "react"
 
 type NovoChamadoProps = {
-    onCriarChamado: (
-      titulo: string, 
-      descricao: string,
-      categoria: string,
-      prioridade: string
-    ) => void
+  onCriarChamado: (
+    titulo: string,
+    descricao: string,
+    categoria: string,
+    prioridade: string
+  ) => void
 
-    onCancelar: () => void
+  onCancelar: () => void
 }
 
 function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
@@ -18,18 +18,22 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
   const [prioridade, setPrioridade] = useState("media")
 
 
-  function criarChamado() {
-    if (titulo.trim() === "" || 
-    descricao.trim() === "" ||
-    categoria === "") {
+  function criarChamado(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (
+      titulo.trim() === "" ||
+      descricao.trim() === "" ||
+      categoria === ""
+    ) {
       alert("Preencha todos os campos")
       return
     }
 
     onCriarChamado(
-      titulo, 
-      descricao, 
-      categoria, 
+      titulo,
+      descricao,
+      categoria,
       prioridade)
 
     setTitulo("")
@@ -39,11 +43,12 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
   }
 
   return (
-    <div>
+    <form onSubmit={criarChamado}>
       <h2>Novo chamado</h2>
 
-      <label>Título</label>
+      <label htmlFor="titulo">Título</label>
       <input
+        id="titulo"
         type="text"
         value={titulo}
         onChange={(event) => setTitulo(event.target.value)}
@@ -51,20 +56,22 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
 
       <br />
 
-      <label>Descrição</label>
+      <label htmlFor="descricao">Descrição</label>
       <textarea
+        id="descricao"
         value={descricao}
         onChange={(event) => setDescricao(event.target.value)}
       />
 
       <br />
 
-      <label>Categoria</label>
+      <label htmlFor="categoria">Categoria</label>
 
       <select
+        id="categoria"
         value={categoria}
         onChange={(event) => setCategoria(event.target.value)}
-        >
+      >
         <option value="">Selecione uma categoria</option>
         <option value="hardware">Hardware</option>
         <option value="software">Software</option>
@@ -74,11 +81,12 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
 
       <br />
 
-      <label>Prioridade</label>
+      <label htmlFor="prioridade">Prioridade</label>
 
       <select
-      value={prioridade}
-      onChange={(event) => setPrioridade(event.target.value)}
+        id="prioridade"
+        value={prioridade}
+        onChange={(event) => setPrioridade(event.target.value)}
       >
         <option value="baixa">Baixa</option>
         <option value="media">Media</option>
@@ -87,14 +95,14 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
 
       <br />
 
-      <button onClick={criarChamado}>
+      <button type="submit">
         Criar chamado
       </button>
 
-      <button onClick={onCancelar}>
+      <button type="button" onClick={onCancelar}>
         Cancelar
       </button>
-    </div>
+    </form>
   )
 }
 
