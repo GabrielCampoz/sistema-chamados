@@ -44,83 +44,93 @@ function NovoChamado({ onCriarChamado, onCancelar }: NovoChamadoProps) {
   }
 
   return (
-    <form onSubmit={criarChamado}>
-      <h2>Novo chamado</h2>
+    <form className="ticket-form" onSubmit={criarChamado}>
+      <div className="section-heading">
+        <div>
+          <span className="eyebrow eyebrow--dark">Nova solicitação</span>
+          <h2>Novo chamado</h2>
+        </div>
+        <p>Descreva o problema para agilizar o atendimento.</p>
+      </div>
 
-      <label htmlFor="titulo">Título</label>
-      <input
-        id="titulo"
-        type="text"
-        value={titulo}
-        onChange={(event) => setTitulo(event.target.value)}
-      />
+      <div className="form-grid">
+        <div className="field field--wide">
+          <label htmlFor="titulo">Título</label>
+          <input
+            id="titulo"
+            type="text"
+            placeholder="Ex.: Computador não inicia"
+            value={titulo}
+            onChange={(event) => setTitulo(event.target.value)}
+          />
+        </div>
 
-      <br />
+        <div className="field field--wide">
+          <label htmlFor="descricao">Descrição</label>
+          <textarea
+            id="descricao"
+            rows={4}
+            placeholder="Conte o que aconteceu e quando o problema começou"
+            value={descricao}
+            onChange={(event) => setDescricao(event.target.value)}
+          />
+        </div>
 
-      <label htmlFor="descricao">Descrição</label>
-      <textarea
-        id="descricao"
-        value={descricao}
-        onChange={(event) => setDescricao(event.target.value)}
-      />
+        <div className="field">
+          <label htmlFor="categoria">Categoria</label>
+          <select
+            id="categoria"
+            value={categoria}
+            onChange={(event) => {
+              const valor = event.target.value
 
-      <br />
+              if (
+                valor === "" ||
+                valor === "hardware" ||
+                valor === "software" ||
+                valor === "rede" ||
+                valor === "acesso"
+              ) {
+                setCategoria(valor)
+              }
+            }}
+          >
+            <option value="">Selecione uma categoria</option>
+            <option value="hardware">Hardware</option>
+            <option value="software">Software</option>
+            <option value="rede">Rede</option>
+            <option value="acesso">Acesso</option>
+          </select>
+        </div>
 
-      <label htmlFor="categoria">Categoria</label>
+        <div className="field">
+          <label htmlFor="prioridade">Prioridade</label>
+          <select
+            id="prioridade"
+            value={prioridade}
+            onChange={(event) => {
+              const valor = event.target.value
 
-      <select
-        id="categoria"
-        value={categoria}
-        onChange={(event) => {
-          const valor = event.target.value
+              if (valor === "baixa" || valor === "media" || valor === "alta") {
+                setPrioridade(valor)
+              }
+            }}
+          >
+            <option value="baixa">Baixa</option>
+            <option value="media">Média</option>
+            <option value="alta">Alta</option>
+          </select>
+        </div>
+      </div>
 
-          if (
-            valor === "" ||
-            valor === "hardware" ||
-            valor === "software" ||
-            valor === "rede" ||
-            valor === "acesso"
-          ) {
-            setCategoria(valor)
-          }
-        }}
-      >
-        <option value="">Selecione uma categoria</option>
-        <option value="hardware">Hardware</option>
-        <option value="software">Software</option>
-        <option value="rede">Rede</option>
-        <option value="acesso">Acesso</option>
-      </select>
-
-      <br />
-
-      <label htmlFor="prioridade">Prioridade</label>
-
-      <select
-        id="prioridade"
-        value={prioridade}
-        onChange={(event) => {
-          const valor = event.target.value
-
-          if (valor === "baixa" || valor === "media" || valor === "alta") {
-            setPrioridade(valor)
-          }
-        }}
-      >
-        <option value="baixa">Baixa</option>
-        <option value="media">Media</option>
-        <option value="alta">Alta</option>
-      </select>
-
-      <br />
-
-      <button type="submit">
-        Criar chamado
-      </button>
-
-      <button type="button" onClick={onCancelar}>
-        Cancelar
-      </button>
+      <div className="form-actions">
+        <button className="button button--ghost" type="button" onClick={onCancelar}>
+          Cancelar
+        </button>
+        <button className="button button--primary" type="submit">
+          Criar chamado
+        </button>
+      </div>
     </form>
   )
 }
