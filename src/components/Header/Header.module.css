@@ -1,0 +1,55 @@
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 64px max(24px, calc((100vw - 1120px) / 2)) 104px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 111, 130, 0.2), transparent 32%),
+    linear-gradient(135deg, var(--red-950), var(--red-800) 68%, var(--red-700));
+}
+
+.content {
+  max-width: 680px;
+}
+
+.header h1 {
+  margin-bottom: 12px;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.header p {
+  max-width: 580px;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.header .newTicket {
+  flex: 0 0 auto;
+  color: var(--red-900);
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(26, 0, 4, 0.24);
+}
+
+.header .newTicket span {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+@media (max-width: 720px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 44px;
+    padding-bottom: 88px;
+  }
+
+  .header .newTicket {
+    width: 100%;
+  }
+}

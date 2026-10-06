@@ -1,0 +1,17 @@
+# Dependências e build
+/node_modules/
+/dist/
+
+# Logs do projeto e do npm
+*.log
+npm-debug.log*
+
+# Configurações locais
+*.local
+
+# Arquivos locais dos editores e do sistema
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.sw?

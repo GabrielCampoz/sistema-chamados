@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Sistema de Chamados</title>
+  <rect width="64" height="64" rx="16" fill="#A3162A" />
+  <path
+    d="M16 18h32a4 4 0 0 1 4 4v4a6 6 0 0 0 0 12v4a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4v-4a6 6 0 0 0 0-12v-4a4 4 0 0 1 4-4Z"
+    fill="#FFF"
+  />
+  <path d="m24 32 6 6 10-12" stroke="#A3162A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

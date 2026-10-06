@@ -1,0 +1,9 @@
+.warning {
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  border: 1px solid var(--red-600);
+  border-radius: 12px;
+  color: var(--red-900);
+  background: var(--red-50);
+  line-height: 1.55;
+}
